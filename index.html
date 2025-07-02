@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【インタラクティブ版】消防・救急DXの全体像：バリューチェーンとDX施策マッピング</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f1f5f9;
+        }
+      .value-chain-header {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 700;
+            border-radius: 0.375rem;
+            position: relative;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+        }
+        @media (min-width: 1024px) {
+        .value-chain-header {
+                font-size: 0.875rem;
+            }
+        }
+      .value-chain-header:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -1rem;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid #1e3a8a;
+            z-index: 10;
+        }
+      .effect-label {
+            background-color: #334155;
+            color: white;
+            font-weight: 900;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+      .dx-card {
+            background-color: #e0f2fe;
+            border: 1px solid #7dd3fc;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            text-align: center;
+            font-size: 0.8rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            min-height: 95px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+      .dx-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 20;
+        }
+      .dx-card-alt {
+            background-color: #e0e7ff;
+            border-color: #a5b4fc;
+        }
+      .dx-card-title {
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 0.875rem;
+            line-height: 1.3;
+        }
+      .dx-card-desc {
+            font-size: 0.7rem;
+            color: #475569;
+            margin-top: 0.25rem;
+            line-height: 1.4;
+        }
+      .highlight-card {
+            border: 2px solid #f59e0b;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+        }
+       .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+       .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 0.75rem;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+       .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+       .close-button:hover,
+       .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes slideIn { from {transform: translateY(-50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+    </style>
+</head>
+<body class="p-2 md:p-6">
+    <div class="max-w-screen-2xl mx-auto bg-white p-4 md:p-6 rounded-xl shadow-lg">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-center text-gray-800 mb-2">消防・救急DXの全体像</h1>
+        <p class="text-center text-gray-500 text-sm md:text-base mb-6">消防・救急業務のバリューチェーンと、各ステップにおけるDX施策のマッピング（パネルをクリックすると詳細が表示されます）</p>
+
+        <div class="flex gap-4">
+            <div class="flex flex-col gap-4 w-14 md:w-20 flex-shrink-0">
+                <div class="h-24 md:h-28"></div>
+                <div class="effect-label flex-1">
+                    <span style="writing-mode: vertical-rl;">業務プロセス効率化・高度化</span>
+                </div>
+                <div class="effect-label flex-1">
+                    <span style="writing-mode: vertical-rl;">市民・医療機関への提供価値向上</span>
+                </div>
+            </div>
+
+            <div class="flex-grow overflow-x-auto">
+                <div class="min-w-[1200px]">
+                    <div class="grid grid-cols-9 gap-x-6 mb-4">
+                        <div class="col-span-3 value-chain-header">指令センターフェーズ</div>
+                        <div class="col-span-3 value-chain-header">現場活動フェーズ (プレホスピタル)</div>
+                        <div class="col-span-3 value-chain-header">病院連携・事後処理フェーズ</div>
+                    </div>
+                    <div class="grid grid-cols-9 gap-x-6 mb-4">
+                        <div class="value-chain-header">①通報受信</div>
+                        <div class="value-chain-header">②状況評価</div>
+                        <div class="value-chain-header">③出動指令</div>
+                        <div class="value-chain-header">④現場到着</div>
+                        <div class="value-chain-header">⑤応急処置</div>
+                        <div class="value-chain-header">⑥搬送先選定</div>
+                        <div class="value-chain-header">⑦病院引継ぎ</div>
+                        <div class="value-chain-header">⑧帰署・報告</div>
+                        <div class="value-chain-header">⑨体制改善</div>
+                    </div>
+
+                    <div class="grid grid-cols-9 auto-rows-fr gap-4">
+                        
+                        <div class="col-start-1" data-modal-target="modal-ai-call"><div class="dx-card"><div class="dx-card-title">AI通話解析</div><p class="dx-card-desc">通話内容をリアルタイムでテキスト化・キーワード検出し判断を支援</p></div></div>
+                        <div class="col-start-2" data-modal-target="modal-ai-triage"><div class="dx-card"><div class="dx-card-title">AI緊急度判定支援</div><p class="dx-card-desc">通報内容から重症度・緊急度をAIが判定しトリアージを補助 [1, 2]</p></div></div>
+                        <div class="col-start-3" data-modal-target="modal-ai-demand"><div class="dx-card"><div class="dx-card-title">AI救急需要予測</div><p class="dx-card-desc">需要を予測し救急隊を最適配置。現場到着時間を短縮 [3, 4, 5]</p></div></div>
+                        <div class="col-start-4" data-modal-target="modal-drone"><div class="dx-card"><div class="dx-card-title">ドローン活用</div><p class="dx-card-desc">危険区域や大規模災害現場の状況を安全に把握 [6]</p></div></div>
+                        <div class="col-start-4 col-span-2" data-modal-target="modal-tablet"><div class="dx-card"><div class="dx-card-title">現場活動支援タブレット</div><p class="dx-card-desc">指令・地図・危険物情報を一元管理。OCRやバイタル自動取込で入力負荷を軽減 [7, 8, 9, 10]</p></div></div>
+                        <div class="col-start-8" data-modal-target="modal-report"><div class="dx-card"><div class="dx-card-title">報告書作成の自動化</div><p class="dx-card-desc">現場で入力したデータから報告書を自動生成。事務作業を最大80%削減 [11, 10, 12]</p></div></div>
+                        <div class="col-start-9" data-modal-target="modal-ebpm"><div class="dx-card"><div class="dx-card-title">データ駆動型政策立案(EBPM)</div><p class="dx-card-desc">蓄積データを分析し、エビデンスに基づき救急体制や人員配置を改善 [13, 10]</p></div></div>
+                        
+                        <div class="col-start-1 col-span-full" data-modal-target="modal-infra"><div class="dx-card dx-card-alt"><div class="dx-card-title">全体基盤DX</div><p class="dx-card-desc">【消防指令システムの標準化・クラウド化】全国の消防本部間でのデータ連携を可能にし、コストを削減 [6, 14] <br>【デジタル人材育成】消防大学校等での研修を通じ、新技術に対応できる職員を育成 [15, 16, 12]</p></div></div>
+
+                        <div class="col-start-2 col-span-2" data-modal-target="modal-live119"><div class="dx-card dx-card-alt highlight-card"><div class="dx-card-title">映像通報システム (Live119)</div><p class="dx-card-desc">現場映像で状況を正確に把握し、より高度な遠隔口頭指導を実現。救命率向上に貢献 [17, 18, 19, 20]</p></div></div>
+                        <div class="col-start-5 col-span-2" data-modal-target="modal-mynumber"><div class="dx-card dx-card-alt highlight-card"><div class="dx-card-title">マイナンバーカード連携</div><p class="dx-card-desc">意識不明者でも正確な既往歴・薬剤情報を取得し、迅速・的確な病院選定と治療に貢献 [6, 21, 22]</p></div></div>
+                        <div class="col-start-7" data-modal-target="modal-ehr"><div class="dx-card dx-card-alt"><div class="dx-card-title">電子カルテ連携</div><p class="dx-card-desc">救急隊が入力した情報を病院の電子カルテにシームレスに連携。情報引継ぎの精度向上と時間短縮を実現 [23, 4, 12]</p></div></div>
+                        <div class="col-start-6 col-span-2" data-modal-target="modal-nser"><div class="dx-card dx-card-alt highlight-card"><div class="dx-card-title">統合データプラットフォーム (NSER等)</div><p class="dx-card-desc">傷病者情報と病院の受入状況をリアルタイムで共有。搬送先選定を迅速化し、病院側の受入準備を円滑化 [24, 11, 4, 10]</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ai-call" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">AI通話解析</h2><p>119番通報の音声をリアルタイムでテキスト化し、AIが内容を解析する技術です。例えば、姫路市消防局では、司令員と通報者の会話から「胸が痛い」「息が苦しい」といったキーワードをAIが自動で抽出し、関連する対処法をタブレットに表示するシステムを運用しています 。これにより、指令員は通報者の状況をより客観的に把握し、聞き逃しを防ぐことができます。指令員の認知的な負荷を軽減し、より迅速で的確な初期対応を支援します。</p></div></div>
+    <div id="modal-ai-triage" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">AI緊急度判定支援</h2><p>通報内容から傷病者の緊急度や重症度をAIが予測し、指令員のトリアージ（重症度・緊急度選別）を支援するシステムです。京都橘大学と日立製作所の共同研究では、過去の通報内容や搬送後の診断結果といったデータをAIに学習させ、緊急度判定プロトコルの精度向上を目指しています 。これにより、客観的なデータに基づいた緊急度判断が可能となり、ドクターカーの要請やPA連携（消防隊と救急隊の同時出動）など、より適切な部隊投入の判断を助けます [25]。</p></div></div>
+    <div id="modal-ai-demand" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">AI救急需要予測</h2><p>過去の救急出動データ、気象情報、人口動態、イベント情報などをAIで解析し、未来の特定日時・場所における救急需要を予測する技術です。東京消防庁や川崎市、横浜市などで実証実験が進められています 。予測に基づき、需要が集中しそうなエリアに事前に救急隊を移動配置（移動待機）することで、通報から現場到着までの時間を物理的に短縮し、救命率の向上を目指します。日立製作所のシステムでは、なぜそのように予測したのか根拠を示すXAI（説明可能AI）技術も活用されています 。</p></div></div>
+    <div id="modal-drone" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">ドローン活用</h2><p>人が立ち入れない、あるいは危険な災害現場の状況を把握するためにドローンを活用します。総務省消防庁も全国の消防本部への配備を推進しています [26]。<br>・<b>火災:</b> 大規模火災で上空から延焼範囲を把握。赤外線カメラで煙の中の火元や残火を確認します 。<br>・<b>捜索・救助:</b> 山岳遭難や水難事故で広範囲を捜索したり、倒壊家屋の状況を確認したりします 。<br>・<b>大規模災害:</b> 土砂災害や水害の被害状況を迅速に把握し、3Dマップを作成して二次災害のリスク評価や安全な活動計画の立案に役立てます 。</p></div></div>
+    <div id="modal-tablet" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">現場活動支援タブレット</h2><p>救急車や消防車に搭載されるタブレット端末です。指令センターからの指令内容や災害地点の地図、建物の図面、危険物情報などをリアルタイムで表示します 。神戸市消防局では、全車両に配備し、車両の位置と活動状況を一元管理するAVM（車両動態管理）システムを構築しています 。また、札幌市消防局では、冬季アジア大会の際に会場図や交通規制といった臨時情報を全隊員に一斉配信し、情報共有の確実性を高めました 。傷病者のバイタルデータをモニターから自動で取り込んだり、免許証やお薬手帳をOCR機能で読み取ったりすることも可能です [19]。</p></div></div>
+    <div id="modal-report" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">報告書作成の自動化</h2><p>救急隊員は、1件の出動ごとに救急活動記録報告書を作成する必要があり、これが大きな事務負担となっています [27]。現場活動支援タブレット（例：NSER mobile）を導入することで、現場でデジタル入力した傷病者情報や活動記録を、そのまま報告書のデータとして活用できます。これにより、従来は手書きのメモを見ながら行っていた二重入力の手間がなくなり、帰署後の報告書作成にかかる時間を最大で80%削減できたという実績があります 。削減された時間で、次の出動への準備や訓練を充実させることができます。</p></div></div>
+    <div id="modal-ebpm" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">データ駆動型政策立案(EBPM)</h2><p>Evidence-Based Policy Making（根拠に基づく政策立案）の略。消防・救急活動でデジタル化・構造化されたデータを蓄積・分析し、救急体制の評価や改善に活かす取り組みです。例えば、統合データプラットフォーム（NSER等）で蓄積されたデータを用いることで、どの地域で、どのような傷病者の搬送に時間がかかっているかといった傾向を客観的に分析できます 。これにより、経験や勘に頼るのではなく、データという客観的な根拠に基づいて救急隊の配置計画や医療機関との連携体制を見直すなど、より効果的・効率的な消防行政の実現を目指します [13]。</p></div></div>
+    <div id="modal-infra" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">全体基盤DX</h2><p>個別の技術導入を支え、その効果を最大化するための基盤となるDX施策です。<br>・<b>消防指令システムの標準化・クラウド化:</b> 各消防本部が個別にシステムを導入してきた結果、コストの高止まりやシステム間の連携が困難という課題がありました。そこで総務省消防庁が主導し、システムのインターフェースを全国で標準化。これにより、他本部や外部システムとのデータ連携が容易になり、コスト削減も期待されます [28, 29]。<br>・<b>デジタル人材育成:</b> ドローンやAIなど新たな技術を使いこなすため、消防職員向けの研修が不可欠です。消防大学校では、ドローン操縦 [7]やサイバーセキュリティ、データ分析など、DX時代に対応したカリキュラムを導入し、デジタル人材の育成を進めています [24, 30, 31]。</p></div></div>
+    <div id="modal-live119" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">映像通報システム (Live119)</h2><p>119番通報時に、指令員の判断で通報者のスマートフォンにSMSを送信し、現場の映像をリアルタイムで送ってもらうシステムです。アプリのインストールは不要で、ブラウザ上で動作します 。<br>・<b>効果:</b> 音声だけでは把握しにくい現場の状況（火災の規模、傷病者の顔色など）を視覚的に確認でき、より的確な部隊投入や応急手当の口頭指導が可能になります 。実際に、心肺蘇生の質が向上した事例や、山岳救助で現場特定が迅速化された奏功事例が報告されています 。<br>・<b>導入状況:</b> 全国の多くの消防本部で導入が進んでおり、2024年5月時点で143本部に達しています 。</p></div></div>
+    <div id="modal-mynumber" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">マイナンバーカード連携</h2><p>救急現場で傷病者のマイナンバーカードを読み取り、オンライン資格確認システムを通じて、本人の医療情報（既往歴、手術歴、薬剤情報、特定健診結果など）を救急隊が照会する、総務省消防庁が主導する国家プロジェクトです [28, 32]。意識がない、あるいは認知症などで自身の情報を正確に伝えられない傷病者に対し、絶大な効果が期待されます。正確な医療情報が分かれば、より迅速かつ適切な搬送先医療機関の選定が可能となり、救命率の向上に大きく貢献すると考えられています [32]。<br><b>課題:</b> 意識不明の傷病者からどのように同意を得るかという法的・倫理的な課題があり、現在「生命の危機が迫っている場合は本人の同意不要」とする制度設計の検討が進められています 。</p></div></div>
+    <div id="modal-ehr" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">電子カルテ連携</h2><p>救急隊が現場活動支援タブレットに入力した傷病者情報を、搬送先の医療機関が使用する電子カルテシステムに直接、あるいは統合データプラットフォームを介して連携させる仕組みです。従来、救急隊から医師への情報伝達は口頭や紙媒体に大きく依存しており、情報の伝達ミスや、病院側での再入力の手間が発生していました [27, 33]。電子カルテ連携が実現すれば、救急隊が入力したデータがシームレスに病院側の記録に反映されるため、情報伝達の正確性と迅速性が向上し、患者到着後のスムーズな治療開始に繋がります。ただし、セキュリティ上の懸念から、外部システムと病院の電子カルテを連携させることには技術的・コスト的なハードルも存在します [27]。</p></div></div>
+    <div id="modal-nser" class="modal"><div class="modal-content"><span class="close-button">&times;</span><h2 class="text-2xl font-bold mb-4 text-blue-800">統合データプラットフォーム (NSER等)</h2><p>救急隊と医療機関の間の情報連携をデジタル化し、一元化するシステムです。代表的なものにTXP Medical社の「NSER mobile」があります。救急隊はタブレット上で傷病者情報を入力し、そのデータを複数の受け入れ候補病院に一斉に送信できます 。病院側は、患者の到着前に詳細な情報を得て、受け入れ準備を整えることが可能です。これにより、電話で一軒ずつ受け入れ先を探す「情報のバケツリレー」がなくなり、搬送先選定の時間が大幅に短縮されます [27, 34]。実際に、医療機関への電話連絡時間が22%、現場滞在時間が10%短縮されたという導入効果が報告されています 。</p></div></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modalTriggers = document.querySelectorAll('[data-modal-target]');
+            
+            modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const modalId = trigger.getAttribute('data-modal-target');
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        modal.style.display = 'block';
+                    }
+                });
+            });
+
+            const closeButtons = document.querySelectorAll('.close-button');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.closest('.modal').style.display = 'none';
+                });
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target.classList.contains('modal')) {
+                    event.target.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
